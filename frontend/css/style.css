@@ -105,3 +105,96 @@ input::placeholder { color: var(--text3); }
 .toast { position: fixed; bottom: calc(var(--nav-h) + 1rem); left: 50%; transform: translateX(-50%); background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: .9rem 1.5rem; font-size: .9rem; font-weight: 500; box-shadow: var(--shadow); z-index: 1000; animation: toastIn .3s; max-width: 90%; }
 @keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(10px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
 @media (max-width: 480px) { #app-shell { max-width: 100%; } .bottom-nav { max-width: 100%; } }
+
+/* ══════════════════════════════════════════════════════════════
+   PWA / MOBILE ENHANCEMENTS
+══════════════════════════════════════════════════════════════ */
+
+/* Remove tap highlight on mobile */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* Smooth scrolling */
+.app-page { -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
+
+/* Safe area insets for notched phones (iPhone X+) */
+#app-shell {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.bottom-nav {
+  padding-bottom: env(safe-area-inset-bottom);
+  height: calc(var(--nav-h) + env(safe-area-inset-bottom));
+}
+.app-page { padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom) + .5rem); }
+
+/* Standalone mode (installed PWA) — hide browser chrome */
+@media (display-mode: standalone) {
+  .status-bar { display: flex; }
+  body { background: var(--bg2); }
+}
+
+/* Install Banner */
+.install-banner {
+  position: fixed;
+  bottom: calc(var(--nav-h) + env(safe-area-inset-bottom) + .8rem);
+  left: 50%; transform: translateX(-50%);
+  width: calc(100% - 2rem); max-width: 460px;
+  background: var(--bg2);
+  border: 1px solid rgba(124,58,237,.4);
+  border-radius: 16px;
+  padding: 1rem;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,.5);
+  z-index: 500;
+  animation: slideUpBanner .4s ease;
+}
+@keyframes slideUpBanner {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+.install-banner-left  { display: flex; align-items: center; gap: .8rem; flex: 1; }
+.install-banner-right { display: flex; align-items: center; gap: .5rem; flex-shrink: 0; }
+.install-btn {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff; border: none; border-radius: 8px;
+  padding: .5rem 1rem; font-size: .85rem; font-weight: 700;
+  cursor: pointer; font-family: inherit;
+}
+.install-dismiss {
+  background: transparent; border: none;
+  color: var(--text3); font-size: 1rem; cursor: pointer;
+  padding: .3rem;
+}
+
+/* Prevent text selection on UI elements */
+.bnav-btn, .qa-btn, .pay-now-btn, .btn-primary,
+.pin-pad button, .quick-amt { user-select: none; }
+
+/* Smooth page transitions */
+.app-page { animation: pageFadeIn .2s ease; }
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Pull-to-refresh visual hint */
+.app-page::-webkit-scrollbar { display: none; }
+.app-page { scrollbar-width: none; }
+
+/* Better touch targets — minimum 44px */
+.bnav-btn { min-height: 44px; }
+.contact-item, .history-item, .txn-item { min-height: 56px; }
+
+/* Keyboard avoidance — push content up when keyboard opens */
+@media (max-height: 500px) {
+  .login-logo { margin-bottom: 1rem; }
+  .login-logo .logo-icon { width: 50px; height: 50px; font-size: 1.5rem; }
+}
+
+/* Full-screen on mobile */
+@media (max-width: 480px) {
+  #app-shell, .bottom-nav { max-width: 100%; border-radius: 0; }
+  .modal-card { border-radius: 20px 20px 0 0; position: fixed; bottom: 0; left: 0; right: 0; width: 100%; max-width: 100%; }
+  .modal-overlay { align-items: flex-end; }
+}

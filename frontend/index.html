@@ -2,8 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
   <title>TrustPay UPI</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json"/>
+  <meta name="theme-color" content="#7c3aed"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="TrustPay"/>
+  <link rel="apple-touch-icon" href="/icons/icon-192.png"/>
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png"/>
+  <link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144.png"/>
+  <link rel="apple-touch-icon" sizes="128x128" href="/icons/icon-128.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon.ico"/>
+
+  <!-- SEO / Social -->
+  <meta name="description" content="India's Safest UPI App with AI-powered Behavioral Fraud Detection"/>
+  <meta name="keywords" content="UPI, payment, fraud detection, TrustPay, safe payment"/>
+  <meta name="author" content="TrustPay"/>
+
+  <!-- Splash screen colors -->
+  <meta name="msapplication-TileColor" content="#7c3aed"/>
+  <meta name="msapplication-TileImage" content="/icons/icon-144.png"/>
+
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
@@ -192,7 +215,68 @@
 ══════════════════════════════════════════════════════════ -->
 <div id="toast" class="toast hidden"></div>
 
+<!-- PWA Install Banner -->
+<div id="install-banner" class="install-banner hidden">
+  <div class="install-banner-left">
+    <img src="/icons/icon-72.png" width="40" height="40" style="border-radius:10px"/>
+    <div>
+      <div style="font-weight:700;font-size:.9rem">Install TrustPay</div>
+      <div style="font-size:.75rem;color:var(--text2)">Add to home screen for best experience</div>
+    </div>
+  </div>
+  <div class="install-banner-right">
+    <button class="install-btn" onclick="installApp()">Install</button>
+    <button class="install-dismiss" onclick="dismissInstall()">✕</button>
+  </div>
+</div>
+
 <script src="js/dashboard.js"></script>
 <script src="js/app.js"></script>
+<script>
+// ── Service Worker Registration ───────────────────────────────────────────────
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('[TrustPay] SW registered:', reg.scope))
+      .catch(err => console.log('[TrustPay] SW failed:', err));
+  });
+}
+
+// ── PWA Install Prompt ────────────────────────────────────────────────────────
+let deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Show banner after 3 seconds
+  setTimeout(() => {
+    const banner = document.getElementById('install-banner');
+    if (banner && !localStorage.getItem('install-dismissed')) {
+      banner.classList.remove('hidden');
+    }
+  }, 3000);
+});
+
+function installApp() {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(choice => {
+    if (choice.outcome === 'accepted') {
+      document.getElementById('install-banner').classList.add('hidden');
+    }
+    deferredPrompt = null;
+  });
+}
+
+function dismissInstall() {
+  document.getElementById('install-banner').classList.add('hidden');
+  localStorage.setItem('install-dismissed', '1');
+}
+
+window.addEventListener('appinstalled', () => {
+  document.getElementById('install-banner').classList.add('hidden');
+  console.log('[TrustPay] App installed!');
+});
+</script>
 </body>
 </html>
