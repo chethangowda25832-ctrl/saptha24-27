@@ -1,0 +1,312 @@
+
+/* ═══════════════════════════════════════════════════════════════
+   GLASSMORPHISM + SMOOTH MOTION UPGRADE
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Global Motion ─────────────────────────────────────────── */
+:root {
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:    cubic-bezier(0, 0, 0.2, 1);
+  --glass-bg:    rgba(255,255,255,0.06);
+  --glass-border:rgba(255,255,255,0.12);
+  --glass-blur:  blur(20px);
+  --glass-shadow:0 8px 32px rgba(0,0,0,0.4);
+  --glow-purple: 0 0 30px rgba(124,58,237,0.35);
+  --glow-green:  0 0 20px rgba(16,185,129,0.3);
+  --glow-red:    0 0 20px rgba(239,68,68,0.3);
+}
+
+/* Smooth everything */
+*, *::before, *::after {
+  transition-timing-function: var(--ease-smooth);
+}
+
+/* ── Glassmorphism Cards ────────────────────────────────────── */
+.glass {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur) !important;
+  -webkit-backdrop-filter: var(--glass-blur) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--glass-shadow) !important;
+}
+
+/* Login card glass */
+.login-card {
+  background: rgba(17,24,39,0.7) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08) !important;
+}
+
+/* Balance card glass */
+.balance-card {
+  background: rgba(255,255,255,0.08) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15) !important;
+}
+
+/* Modal glass */
+.modal-card {
+  background: rgba(17,24,39,0.85) !important;
+  backdrop-filter: blur(28px) !important;
+  -webkit-backdrop-filter: blur(28px) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  box-shadow: 0 -4px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06) !important;
+}
+
+/* Bottom nav glass */
+.bottom-nav {
+  background: rgba(17,24,39,0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-top: 1px solid rgba(255,255,255,0.08) !important;
+}
+
+/* Status bar glass */
+.status-bar {
+  background: rgba(17,24,39,0.9) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Page header glass */
+.page-header {
+  background: rgba(17,24,39,0.85) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+}
+
+/* Cards glass */
+.qa-btn, .profile-item, .plan-card, .operator-btn,
+.receiver-card, .offer-card, .stat-card, .chart-card {
+  background: rgba(255,255,255,0.04) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  transition: transform 0.2s var(--ease-spring), box-shadow 0.2s var(--ease-smooth), background 0.2s !important;
+}
+.qa-btn:active, .profile-item:active, .plan-card:active {
+  transform: scale(0.96) !important;
+  background: rgba(255,255,255,0.08) !important;
+}
+
+/* History / txn items */
+.history-item, .txn-item, .contact-item {
+  transition: background 0.15s var(--ease-smooth), transform 0.15s var(--ease-spring) !important;
+}
+.history-item:active, .txn-item:active, .contact-item:active {
+  background: rgba(255,255,255,0.05) !important;
+  transform: scale(0.99) !important;
+}
+
+/* ── Glowing Buttons ────────────────────────────────────────── */
+.btn-primary {
+  background: linear-gradient(135deg, #7c3aed, #8b5cf6, #a78bfa) !important;
+  box-shadow: 0 4px 20px rgba(124,58,237,0.4) !important;
+  transition: transform 0.2s var(--ease-spring), box-shadow 0.2s var(--ease-smooth) !important;
+  position: relative; overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  pointer-events: none;
+}
+.btn-primary:active {
+  transform: scale(0.97) !important;
+  box-shadow: 0 2px 10px rgba(124,58,237,0.3) !important;
+}
+
+.pay-now-btn {
+  background: linear-gradient(135deg, #7c3aed, #8b5cf6) !important;
+  box-shadow: 0 4px 24px rgba(124,58,237,0.45) !important;
+  transition: transform 0.2s var(--ease-spring), box-shadow 0.2s !important;
+  position: relative; overflow: hidden;
+}
+.pay-now-btn::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
+  pointer-events: none;
+}
+.pay-now-btn:active {
+  transform: scale(0.97) !important;
+  box-shadow: 0 2px 12px rgba(124,58,237,0.3) !important;
+}
+
+/* Scan button glow */
+.bnav-scan .scan-icon {
+  box-shadow: 0 6px 24px rgba(124,58,237,0.5), 0 0 0 0 rgba(124,58,237,0.3) !important;
+  animation: scanPulse 3s ease-in-out infinite !important;
+}
+@keyframes scanPulse {
+  0%, 100% { box-shadow: 0 6px 24px rgba(124,58,237,0.5), 0 0 0 0 rgba(124,58,237,0.3); }
+  50%       { box-shadow: 0 6px 24px rgba(124,58,237,0.5), 0 0 0 8px rgba(124,58,237,0); }
+}
+
+/* ── Input Fields Glass ─────────────────────────────────────── */
+input[type="text"], input[type="tel"],
+input[type="password"], input[type="number"],
+.note-input {
+  background: rgba(255,255,255,0.05) !important;
+  border: 1.5px solid rgba(255,255,255,0.1) !important;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s !important;
+}
+input:focus, .note-input:focus {
+  background: rgba(255,255,255,0.08) !important;
+  border-color: rgba(124,58,237,0.7) !important;
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.15) !important;
+}
+.input-row {
+  background: rgba(255,255,255,0.05) !important;
+  border: 1.5px solid rgba(255,255,255,0.1) !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+.input-row:focus-within {
+  border-color: rgba(124,58,237,0.7) !important;
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.15) !important;
+}
+
+/* ── Page Transitions ───────────────────────────────────────── */
+.app-page.active {
+  animation: pageSlideIn 0.28s var(--ease-out) !important;
+}
+@keyframes pageSlideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Modal sheet animation */
+.modal-card {
+  animation: sheetUp 0.32s var(--ease-spring) !important;
+}
+@keyframes sheetUp {
+  from { transform: translateY(100%); opacity: 0.5; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ── Home Header Glow ───────────────────────────────────────── */
+.home-header {
+  background: linear-gradient(160deg, #1a1040 0%, #2d1b69 40%, #1a1040 100%) !important;
+  position: relative;
+}
+.home-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Profile Header Glow ────────────────────────────────────── */
+.profile-header {
+  background: linear-gradient(160deg, #1a1040, #2d1b69) !important;
+  position: relative;
+}
+.profile-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Risk Bar Glow ──────────────────────────────────────────── */
+.risk-bar-fill {
+  box-shadow: 0 0 10px rgba(239,68,68,0.4);
+}
+
+/* ── Scam Alert Pulse ───────────────────────────────────────── */
+.scam-alert {
+  animation: scamPulse 2s ease-in-out infinite !important;
+}
+@keyframes scamPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.3), inset 0 0 0 0 rgba(239,68,68,0); }
+  50%       { box-shadow: 0 0 0 6px rgba(239,68,68,0), inset 0 0 20px rgba(239,68,68,0.05); }
+}
+
+/* ── Toast Glass ────────────────────────────────────────────── */
+.toast {
+  background: rgba(17,24,39,0.9) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
+}
+
+/* ── PIN Pad Glass ──────────────────────────────────────────── */
+.pin-pad button {
+  background: rgba(255,255,255,0.06) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  transition: transform 0.15s var(--ease-spring), background 0.15s !important;
+}
+.pin-pad button:active {
+  transform: scale(0.9) !important;
+  background: rgba(124,58,237,0.25) !important;
+  border-color: rgba(124,58,237,0.5) !important;
+}
+
+/* ── Offer Cards ────────────────────────────────────────────── */
+.offer-card {
+  background: linear-gradient(135deg, rgba(30,58,95,0.6), rgba(30,27,75,0.6)) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(99,102,241,0.25) !important;
+  transition: transform 0.2s var(--ease-spring) !important;
+}
+.offer-card:active { transform: scale(0.97) !important; }
+
+/* ── Quick Amount Pills ─────────────────────────────────────── */
+.quick-amt {
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  transition: all 0.2s var(--ease-spring) !important;
+}
+.quick-amt:active {
+  background: rgba(124,58,237,0.2) !important;
+  border-color: rgba(124,58,237,0.5) !important;
+  transform: scale(0.95) !important;
+}
+
+/* ── Filter Buttons ─────────────────────────────────────────── */
+.filter-btn {
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  transition: all 0.2s var(--ease-spring) !important;
+}
+.filter-btn.active {
+  background: rgba(124,58,237,0.8) !important;
+  box-shadow: 0 4px 12px rgba(124,58,237,0.4) !important;
+}
+
+/* ── Logout Button ──────────────────────────────────────────── */
+.logout-btn {
+  background: rgba(239,68,68,0.08) !important;
+  border: 1px solid rgba(239,68,68,0.2) !important;
+  transition: all 0.2s var(--ease-spring) !important;
+}
+.logout-btn:active {
+  background: rgba(239,68,68,0.2) !important;
+  transform: scale(0.98) !important;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.3); border-radius: 99px; }
+
+/* ── Change PIN Modal ───────────────────────────────────────── */
+.change-pin-wrap { padding: .5rem 0; }
+.change-pin-wrap .pin-step { display: none; }
+.change-pin-wrap .pin-step.active { display: block; animation: pageSlideIn 0.25s var(--ease-out); }
+.change-pin-step-label {
+  text-align: center; font-size: .85rem; color: var(--text2);
+  margin-bottom: 1.2rem; padding: .6rem 1rem;
+  background: rgba(124,58,237,0.1);
+  border: 1px solid rgba(124,58,237,0.2);
+  border-radius: 10px;
+}
+.change-pin-step-label span { color: var(--accent2); font-weight: 700; }

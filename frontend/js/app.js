@@ -788,7 +788,7 @@ function buildProfile() {
       </div>
       <div class="profile-section">
         <div class="profile-section-title">Security</div>
-        <div class="profile-item" onclick="showToast('PIN change coming soon')">
+        <div class="profile-item" onclick="openChangePinModal()">
           <div class="profile-item-icon" style="background:rgba(239,68,68,.15)">🔒</div>
           <div class="profile-item-text">
             <div class="profile-item-label">Change UPI PIN</div>

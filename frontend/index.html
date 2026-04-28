@@ -31,6 +31,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/pages.css"/>
+  <link rel="stylesheet" href="css/glass.css"/>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
@@ -217,6 +218,69 @@
 <!-- ══════════════════════════════════════════════════════════
      TOAST
 ══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════
+     MODAL: CHANGE PIN
+══════════════════════════════════════════════════════════ -->
+<div id="change-pin-modal" class="modal-overlay hidden">
+  <div class="modal-card pin-card">
+    <div class="pin-header">
+      <div class="pin-to">Change UPI PIN</div>
+      <div class="pin-amount-display" id="cp-title">Step 1 of 3</div>
+    </div>
+    <div class="change-pin-wrap">
+      <!-- Step 1: Enter current PIN -->
+      <div class="pin-step active" id="cp-step1">
+        <div class="change-pin-step-label">Enter your <span>Current PIN</span></div>
+        <p class="pin-label">Current PIN</p>
+        <div class="pin-dots" id="cp-dots1">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="pin-pad">
+          <button onclick="cpKey('1')">1</button><button onclick="cpKey('2')">2</button><button onclick="cpKey('3')">3</button>
+          <button onclick="cpKey('4')">4</button><button onclick="cpKey('5')">5</button><button onclick="cpKey('6')">6</button>
+          <button onclick="cpKey('7')">7</button><button onclick="cpKey('8')">8</button><button onclick="cpKey('9')">9</button>
+          <button onclick="cpKey('back')" class="pin-back">⌫</button>
+          <button onclick="cpKey('0')">0</button>
+          <button onclick="cpKey('ok')" class="pin-ok">✓</button>
+        </div>
+      </div>
+      <!-- Step 2: Enter new PIN -->
+      <div class="pin-step" id="cp-step2">
+        <div class="change-pin-step-label">Enter your <span>New PIN</span></div>
+        <p class="pin-label">New PIN (4-6 digits)</p>
+        <div class="pin-dots" id="cp-dots2">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="pin-pad">
+          <button onclick="cpKey('1')">1</button><button onclick="cpKey('2')">2</button><button onclick="cpKey('3')">3</button>
+          <button onclick="cpKey('4')">4</button><button onclick="cpKey('5')">5</button><button onclick="cpKey('6')">6</button>
+          <button onclick="cpKey('7')">7</button><button onclick="cpKey('8')">8</button><button onclick="cpKey('9')">9</button>
+          <button onclick="cpKey('back')" class="pin-back">⌫</button>
+          <button onclick="cpKey('0')">0</button>
+          <button onclick="cpKey('ok')" class="pin-ok">✓</button>
+        </div>
+      </div>
+      <!-- Step 3: Confirm new PIN -->
+      <div class="pin-step" id="cp-step3">
+        <div class="change-pin-step-label">Confirm your <span>New PIN</span></div>
+        <p class="pin-label">Re-enter New PIN</p>
+        <div class="pin-dots" id="cp-dots3">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="pin-pad">
+          <button onclick="cpKey('1')">1</button><button onclick="cpKey('2')">2</button><button onclick="cpKey('3')">3</button>
+          <button onclick="cpKey('4')">4</button><button onclick="cpKey('5')">5</button><button onclick="cpKey('6')">6</button>
+          <button onclick="cpKey('7')">7</button><button onclick="cpKey('8')">8</button><button onclick="cpKey('9')">9</button>
+          <button onclick="cpKey('back')" class="pin-back">⌫</button>
+          <button onclick="cpKey('0')">0</button>
+          <button onclick="cpKey('ok')" class="pin-ok">✓</button>
+        </div>
+      </div>
+    </div>
+    <button class="pin-cancel-btn" onclick="closeChangePinModal()">Cancel</button>
+  </div>
+</div>
+
 <div id="toast" class="toast hidden"></div>
 
 <!-- PWA Install Banner -->
@@ -234,6 +298,7 @@
   </div>
 </div>
 
+<script src="js/changepin.js"></script>
 <script src="js/dashboard.js"></script>
 <script src="js/app.js"></script>
 <script>

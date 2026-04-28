@@ -412,5 +412,24 @@ def emergency_lock():
     msg = 'Account locked for 24 hours. Contact support to unlock.' if lock else 'Account unlocked.'
     return jsonify({'status':'ok','message':msg})
 
+# ── Change UPI PIN ────────────────────────────────────────────────────────────
+@app.route('/api/change-pin', methods=['POST'])
+def change_pin():
+    data    = request.get_json()
+    user_id = int(data.get('user_id'))
+    old_pin = data.get('old_pin','').strip()
+    new_pin = data.get('new_pin','').strip()
+    if len(new_pin) < 4 or len(new_pin) > 6:
+        return jsonify({'status':'error','message':'PIN must be 4-6 digits'}), 400
+    db = get_db()
+    user = db.execute('SELECT * FROM users WHERE id=?', (user_id,)).fetchone()
+    if not user:
+        db.close(); return jsonify({'status':'error','message':'User not found'}), 404
+    if user['pin'] != old_pin:
+        db.close(); return jsonify({'status':'error','message':'Current PIN is incorrect'}), 401
+    db.execute('UPDATE users SET pin=?, pin_attempts=0, pin_locked_until=NULL WHERE id=?', (new_pin, user_id))
+    db.commit(); db.close()
+    return jsonify({'status':'ok','message':'PIN changed successfully'})
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5000)
