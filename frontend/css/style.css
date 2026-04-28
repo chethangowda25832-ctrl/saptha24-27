@@ -402,3 +402,282 @@ input::placeholder { color: var(--text3); }
   .login-card { padding: 1rem; }
   .form-group { margin-bottom: .7rem; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   GLASS EFFECTS — All Boxes
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Universal glass mixin applied to all cards/boxes */
+.glass-box {
+  background: rgba(255,255,255,0.05) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4),
+              inset 0 1px 0 rgba(255,255,255,0.08),
+              inset 0 -1px 0 rgba(0,0,0,0.2) !important;
+}
+
+/* ── Login card — deep glass ─────────────────────────────────── */
+.login-card {
+  background: rgba(255,255,255,0.05) !important;
+  backdrop-filter: blur(30px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  box-shadow:
+    0 25px 50px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(255,255,255,0.04),
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    inset 0 -1px 0 rgba(0,0,0,0.3) !important;
+}
+
+/* ── App shell glass layers ──────────────────────────────────── */
+.status-bar {
+  background: rgba(0,0,0,0.7) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+}
+.bottom-nav {
+  background: rgba(0,0,0,0.75) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border-top: 1px solid rgba(255,255,255,0.08) !important;
+  box-shadow: 0 -8px 32px rgba(0,0,0,0.5) !important;
+}
+.page-header {
+  background: rgba(0,0,0,0.7) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+}
+
+/* ── Modal glass ─────────────────────────────────────────────── */
+.modal-card {
+  background: rgba(8,8,8,0.88) !important;
+  backdrop-filter: blur(32px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(200%) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  box-shadow:
+    0 -4px 60px rgba(0,0,0,0.7),
+    inset 0 1px 0 rgba(255,255,255,0.08) !important;
+}
+
+/* ── All card-like elements ──────────────────────────────────── */
+.qa-btn,
+.balance-card,
+.receiver-card,
+.offer-card,
+.profile-item,
+.plan-card,
+.operator-btn,
+.stat-card,
+.chart-card,
+.history-item,
+.contact-item,
+.demo-qr-item,
+.my-qr-card,
+.scan-tabs,
+.chat-window,
+.install-banner,
+.toast {
+  backdrop-filter: blur(16px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+}
+
+/* ── Input glass ─────────────────────────────────────────────── */
+input[type="text"],
+input[type="tel"],
+input[type="password"],
+input[type="number"],
+.note-input,
+.input-row,
+#chat-input {
+  background: rgba(255,255,255,0.05) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+}
+input:focus,
+.note-input:focus,
+#chat-input:focus,
+.input-row:focus-within {
+  background: rgba(255,255,255,0.08) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.06),
+              0 0 20px rgba(255,255,255,0.04) !important;
+}
+
+/* ── Button glass ────────────────────────────────────────────── */
+.btn-primary {
+  background: rgba(255,255,255,0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: 0 4px 20px rgba(255,255,255,0.15),
+              inset 0 1px 0 rgba(255,255,255,0.5) !important;
+  transition: transform 0.2s var(--ease-spring),
+              box-shadow 0.2s var(--ease-smooth),
+              opacity 0.2s !important;
+}
+.btn-primary:active {
+  transform: scale(0.97) !important;
+  box-shadow: 0 2px 10px rgba(255,255,255,0.1) !important;
+}
+
+/* ── PIN pad glass ───────────────────────────────────────────── */
+.pin-pad button {
+  background: rgba(255,255,255,0.06) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  transition: transform 0.15s var(--ease-spring),
+              background 0.15s !important;
+}
+.pin-pad button:active {
+  background: rgba(255,255,255,0.15) !important;
+  transform: scale(0.9) !important;
+  box-shadow: 0 0 15px rgba(255,255,255,0.1) !important;
+}
+
+/* ── Quick amounts glass ─────────────────────────────────────── */
+.quick-amt {
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  transition: all 0.2s var(--ease-spring) !important;
+}
+.quick-amt:active {
+  background: rgba(255,255,255,0.12) !important;
+  border-color: rgba(255,255,255,0.3) !important;
+  transform: scale(0.95) !important;
+}
+
+/* ── Filter buttons glass ────────────────────────────────────── */
+.filter-btn {
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  transition: all 0.2s var(--ease-spring) !important;
+}
+.filter-btn.active {
+  background: rgba(255,255,255,0.12) !important;
+  border-color: rgba(255,255,255,0.35) !important;
+  box-shadow: 0 0 12px rgba(255,255,255,0.08) !important;
+}
+
+/* ── Scan frame glass ────────────────────────────────────────── */
+.scan-frame {
+  background: rgba(255,255,255,0.03) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+/* ── Chatbot glass ───────────────────────────────────────────── */
+.chat-window {
+  background: rgba(5,5,5,0.88) !important;
+  backdrop-filter: blur(32px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(180%) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8),
+              inset 0 1px 0 rgba(255,255,255,0.06) !important;
+}
+.chat-header {
+  background: rgba(255,255,255,0.04) !important;
+  backdrop-filter: blur(10px) !important;
+}
+.chat-msg.bot .chat-bubble {
+  background: rgba(255,255,255,0.07) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LOGIN PAGE — Hexagon Particle Animation
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Login screen gets its own canvas */
+#login-hex-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Login content sits above canvas */
+.screen.active .login-wrap {
+  position: relative;
+  z-index: 2;
+}
+
+/* Floating glow orbs behind login */
+.screen.active::before,
+.screen.active::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  animation: orbFloat 8s ease-in-out infinite;
+}
+.screen.active::before {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+  top: -80px; left: -80px;
+  animation-delay: 0s;
+}
+.screen.active::after {
+  width: 250px; height: 250px;
+  background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+  bottom: -60px; right: -60px;
+  animation-delay: -4s;
+}
+@keyframes orbFloat {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%      { transform: translate(30px,-20px) scale(1.1); }
+  66%      { transform: translate(-20px,30px) scale(0.95); }
+}
+
+/* Login card entrance animation */
+.login-card {
+  animation: loginCardIn 0.6s var(--ease-spring) both !important;
+}
+@keyframes loginCardIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Logo entrance */
+.login-logo {
+  animation: logoIn 0.5s var(--ease-spring) 0.1s both;
+}
+@keyframes logoIn {
+  from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Logo glow pulse */
+.logo-icon img {
+  animation: logoPulse 4s ease-in-out infinite;
+}
+@keyframes logoPulse {
+  0%,100% { box-shadow: 0 10px 40px rgba(255,255,255,0.1); }
+  50%      { box-shadow: 0 10px 60px rgba(255,255,255,0.2), 0 0 0 8px rgba(255,255,255,0.03); }
+}
+
+/* Staggered form field entrance */
+.form-group:nth-child(1) { animation: fieldIn 0.4s var(--ease-spring) 0.3s both; }
+.form-group:nth-child(2) { animation: fieldIn 0.4s var(--ease-spring) 0.4s both; }
+.form-group:nth-child(3) { animation: fieldIn 0.4s var(--ease-spring) 0.5s both; }
+.form-group:nth-child(4) { animation: fieldIn 0.4s var(--ease-spring) 0.6s both; }
+@keyframes fieldIn {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Button entrance */
+.btn-primary {
+  animation: btnIn 0.4s var(--ease-spring) 0.5s both;
+}
+@keyframes btnIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

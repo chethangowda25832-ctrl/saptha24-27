@@ -1,153 +1,128 @@
+
 /* ═══════════════════════════════════════════════════════════════
-   HEXAGON PARTICLE ANIMATION BACKGROUND — TrustPay
+   HEXAGON PARTICLE ANIMATION — TrustPay
+   Runs on login screen + app shell
    ═══════════════════════════════════════════════════════════════ */
 
 (function() {
   'use strict';
 
-  let canvas, ctx, particles = [], animId;
-  const HEX_COUNT = 28;
+  function createParticles(W, H, count) {
+    const arr = [];
+    for (let i = 0; i < count; i++) {
+      arr.push({
+        x: Math.random() * W, y: Math.random() * H,
+        size: Math.random() * 20 + 8,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        alpha: Math.random() * 0.15 + 0.03,
+        pulse: Math.random() * Math.PI * 2,
+        pulseSpeed: Math.random() * 0.012 + 0.004,
+        rotate: Math.random() * Math.PI * 2,
+        rotateSpeed: (Math.random() - 0.5) * 0.003,
+        filled: Math.random() > 0.6,
+      });
+    }
+    return arr;
+  }
 
-  function hexPath(cx, cy, r) {
+  function hexPath(ctx, cx, cy, r) {
     ctx.beginPath();
     for (let i = 0; i < 6; i++) {
-      const angle = Math.PI / 180 * (60 * i - 30);
-      const x = cx + r * Math.cos(angle);
-      const y = cy + r * Math.sin(angle);
-      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      const a = Math.PI / 180 * (60 * i - 30);
+      i === 0 ? ctx.moveTo(cx + r * Math.cos(a), cy + r * Math.sin(a))
+              : ctx.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a));
     }
     ctx.closePath();
   }
 
-  function getThemeColor() {
-    const bw = document.body.classList.contains('theme-bw');
-    return bw
-      ? { stroke: 'rgba(255,255,255,', fill: 'rgba(255,255,255,' }
-      : { stroke: 'rgba(0,212,255,',   fill: 'rgba(0,212,255,' };
-  }
-
-  function createParticle(w, h) {
-    const size = Math.random() * 22 + 10;
-    return {
-      x:     Math.random() * w,
-      y:     Math.random() * h,
-      size,
-      vx:    (Math.random() - 0.5) * 0.35,
-      vy:    (Math.random() - 0.5) * 0.35,
-      alpha: Math.random() * 0.18 + 0.04,
-      pulse: Math.random() * Math.PI * 2,
-      pulseSpeed: Math.random() * 0.015 + 0.005,
-      rotate: Math.random() * Math.PI * 2,
-      rotateSpeed: (Math.random() - 0.5) * 0.004,
-      filled: Math.random() > 0.65,
-    };
-  }
-
-  function initCanvas() {
-    canvas = document.getElementById('hex-canvas');
-    if (!canvas) return;
-    ctx = canvas.getContext('2d');
-    resize();
-    particles = [];
-    for (let i = 0; i < HEX_COUNT; i++) {
-      particles.push(createParticle(canvas.width, canvas.height));
-    }
-    animate();
-  }
-
-  function resize() {
-    if (!canvas) return;
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-
-  function animate() {
-    if (!canvas || !ctx) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const col = getThemeColor();
-    const W = canvas.width, H = canvas.height;
-
+  function drawFrame(ctx, particles, W, H) {
+    ctx.clearRect(0, 0, W, H);
+    const col = 'rgba(255,255,255,';
     particles.forEach(p => {
-      // Move
-      p.x += p.vx;
-      p.y += p.vy;
+      p.x += p.vx; p.y += p.vy;
       p.pulse += p.pulseSpeed;
       p.rotate += p.rotateSpeed;
-
-      // Wrap around edges
-      if (p.x < -p.size * 2) p.x = W + p.size;
-      if (p.x > W + p.size * 2) p.x = -p.size;
-      if (p.y < -p.size * 2) p.y = H + p.size;
-      if (p.y > H + p.size * 2) p.y = -p.size;
-
-      // Pulsing alpha
-      const a = p.alpha + Math.sin(p.pulse) * 0.06;
-
+      if (p.x < -p.size*2) p.x = W + p.size;
+      if (p.x > W + p.size*2) p.x = -p.size;
+      if (p.y < -p.size*2) p.y = H + p.size;
+      if (p.y > H + p.size*2) p.y = -p.size;
+      const a = p.alpha + Math.sin(p.pulse) * 0.05;
       ctx.save();
       ctx.translate(p.x, p.y);
       ctx.rotate(p.rotate);
-
       if (p.filled) {
-        hexPath(0, 0, p.size);
-        ctx.fillStyle = col.fill + (a * 0.4).toFixed(3) + ')';
+        hexPath(ctx, 0, 0, p.size);
+        ctx.fillStyle = col + (a * 0.35).toFixed(3) + ')';
         ctx.fill();
       }
-
-      hexPath(0, 0, p.size);
-      ctx.strokeStyle = col.stroke + a.toFixed(3) + ')';
+      hexPath(ctx, 0, 0, p.size);
+      ctx.strokeStyle = col + a.toFixed(3) + ')';
       ctx.lineWidth = 1;
       ctx.stroke();
-
-      // Inner smaller hex
-      hexPath(0, 0, p.size * 0.55);
-      ctx.strokeStyle = col.stroke + (a * 0.5).toFixed(3) + ')';
+      hexPath(ctx, 0, 0, p.size * 0.5);
+      ctx.strokeStyle = col + (a * 0.4).toFixed(3) + ')';
       ctx.lineWidth = 0.5;
       ctx.stroke();
-
       ctx.restore();
     });
-
-    // Draw connecting lines between nearby hexagons
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
         const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 160) {
-          const lineAlpha = (1 - dist / 160) * 0.08;
+        const d = Math.sqrt(dx*dx + dy*dy);
+        if (d < 150) {
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = col.stroke + lineAlpha.toFixed(3) + ')';
+          ctx.strokeStyle = col + ((1 - d/150) * 0.07).toFixed(3) + ')';
           ctx.lineWidth = 0.5;
           ctx.stroke();
         }
       }
     }
-
-    animId = requestAnimationFrame(animate);
   }
 
-  function stopAnimation() {
-    if (animId) cancelAnimationFrame(animId);
+  /* ── App shell canvas ──────────────────────────────────── */
+  let appCanvas, appCtx, appParticles = [], appAnimId;
+
+  function initAppCanvas() {
+    appCanvas = document.getElementById('hex-canvas');
+    if (!appCanvas) return;
+    appCtx = appCanvas.getContext('2d');
+    appCanvas.width = window.innerWidth;
+    appCanvas.height = window.innerHeight;
+    appParticles = createParticles(appCanvas.width, appCanvas.height, 25);
+    (function loop() { drawFrame(appCtx, appParticles, appCanvas.width, appCanvas.height); appAnimId = requestAnimationFrame(loop); })();
   }
 
-  // Public API
-  window.HexParticles = { init: initCanvas, stop: stopAnimation, resize };
+  /* ── Login canvas ──────────────────────────────────────── */
+  let loginCanvas, loginCtx, loginParticles = [], loginAnimId;
 
-  // Auto-init when DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCanvas);
-  } else {
-    setTimeout(initCanvas, 100);
+  function initLoginCanvas() {
+    if (document.getElementById('login-hex-canvas')) return;
+    loginCanvas = document.createElement('canvas');
+    loginCanvas.id = 'login-hex-canvas';
+    loginCanvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;';
+    document.body.insertBefore(loginCanvas, document.body.firstChild);
+    loginCtx = loginCanvas.getContext('2d');
+    loginCanvas.width = window.innerWidth;
+    loginCanvas.height = window.innerHeight;
+    loginParticles = createParticles(loginCanvas.width, loginCanvas.height, 40);
+    (function loop() { drawFrame(loginCtx, loginParticles, loginCanvas.width, loginCanvas.height); loginAnimId = requestAnimationFrame(loop); })();
   }
 
-  window.addEventListener('resize', () => {
-    resize();
-    if (particles.length === 0 && canvas) {
-      for (let i = 0; i < HEX_COUNT; i++) {
-        particles.push(createParticle(canvas.width, canvas.height));
-      }
+  window.HexParticles = {
+    initApp:   initAppCanvas,
+    initLogin: initLoginCanvas,
+    resize: function() {
+      if (appCanvas)   { appCanvas.width = window.innerWidth;   appCanvas.height = window.innerHeight; }
+      if (loginCanvas) { loginCanvas.width = window.innerWidth; loginCanvas.height = window.innerHeight; }
     }
-  });
+  };
+
+  function boot() { initLoginCanvas(); initAppCanvas(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+  window.addEventListener('resize', function() { if (window.HexParticles) window.HexParticles.resize(); });
 })();
