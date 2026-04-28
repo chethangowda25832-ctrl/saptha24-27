@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>TrustPay UPI — Project Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#020817;--bg2:#0a1628;--bg3:#0f2040;--text:#e2f0ff;--text2:#7ab3d4;--text3:#3d7a9e;--cyan:#00d4ff;--green:#00ff88;--red:#ff3366;--purple:#b44fff;--border:rgba(0,212,255,0.15)}
+body{font-family:Inter,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;background-image:linear-gradient(rgba(0,212,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.025) 1px,transparent 1px);background-size:40px 40px}
+.container{max-width:900px;margin:0 auto;padding:2rem 1.5rem}
+/* Header */
+.report-header{text-align:center;padding:3rem 2rem;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.report-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(0,212,255,0.1) 0%,transparent 70%);pointer-events:none}
+.logo-wrap{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1.5rem}
+.logo-wrap img{width:64px;height:64px;border-radius:16px}
+.report-title{font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,#00d4ff,#66e0ff,#b44fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px}
+.report-subtitle{font-size:1rem;color:var(--text2);margin-top:.5rem;letter-spacing:1px}
+.badges{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:1.5rem}
+.badge{padding:.3rem .9rem;border-radius:99px;font-size:.75rem;font-weight:600;letter-spacing:.5px}
+.badge-cyan{background:rgba(0,212,255,0.12);border:1px solid rgba(0,212,255,0.3);color:var(--cyan)}
+.badge-green{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--green)}
+.badge-purple{background:rgba(180,79,255,0.1);border:1px solid rgba(180,79,255,0.3);color:var(--purple)}
+/* Sections */
+.section{margin:2.5rem 0;padding:2rem;background:rgba(0,212,255,0.03);border:1px solid var(--border);border-radius:20px;position:relative;overflow:hidden}
+.section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,255,0.4),transparent)}
+.section-title{font-size:1.1rem;font-weight:700;color:var(--cyan);letter-spacing:2px;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+.section-title::before{content:'';width:3px;height:1.1rem;background:var(--cyan);border-radius:99px;box-shadow:0 0 8px rgba(0,212,255,0.6)}
+/* Info grid */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.info-card{background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.1);border-radius:12px;padding:1rem}
+.info-label{font-size:.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:.3rem}
+.info-value{font-size:.95rem;font-weight:600;color:var(--text)}
+/* Objectives */
+.obj-list{list-style:none}
+.obj-list li{padding:.6rem 0;border-bottom:1px solid rgba(0,212,255,0.06);display:flex;align-items:flex-start;gap:.8rem;font-size:.9rem;color:var(--text2)}
+.obj-list li:last-child{border-bottom:none}
+.obj-list li::before{content:'▸';color:var(--cyan);flex-shrink:0;margin-top:.1rem}
+/* Feature table */
+.feat-table{width:100%;border-collapse:collapse}
+.feat-table th{text-align:left;padding:.7rem 1rem;font-size:.75rem;color:var(--cyan);text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(0,212,255,0.2)}
+.feat-table td{padding:.7rem 1rem;font-size:.85rem;border-bottom:1px solid rgba(0,212,255,0.06);color:var(--text2)}
+.feat-table tr:last-child td{border-bottom:none}
+.feat-table td:first-child{color:var(--text);font-weight:600}
+.status-done{color:var(--green);font-weight:700}
+/* Tech stack */
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem}
+.tech-card{background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.1);border-radius:12px;padding:.9rem;text-align:center}
+.tech-icon{font-size:1.8rem;margin-bottom:.4rem}
+.tech-name{font-size:.85rem;font-weight:700;color:var(--text)}
+.tech-desc{font-size:.72rem;color:var(--text3);margin-top:.2rem}
+/* Architecture */
+.arch-flow{display:flex;flex-direction:column;gap:.6rem}
+.arch-step{display:flex;align-items:center;gap:1rem;padding:.8rem 1rem;background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.1);border-radius:10px}
+.arch-num{width:28px;height:28px;border-radius:50%;background:rgba(0,212,255,0.15);border:1px solid rgba(0,212,255,0.4);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:var(--cyan);flex-shrink:0}
+.arch-text{font-size:.85rem;color:var(--text2)}
+.arch-text strong{color:var(--text)}
+.arch-arrow{text-align:center;color:rgba(0,212,255,0.4);font-size:1.2rem}
+/* Anomaly table */
+.anomaly-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.anomaly-card{background:rgba(0,212,255,0.03);border:1px solid rgba(0,212,255,0.1);border-radius:10px;padding:.8rem}
+.anomaly-name{font-size:.82rem;font-weight:700;color:var(--text);margin-bottom:.2rem}
+.anomaly-desc{font-size:.75rem;color:var(--text3)}
+.anomaly-score{font-size:.72rem;color:var(--cyan);margin-top:.3rem;font-weight:600}
+/* Stats */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.stat-box{text-align:center;padding:1.2rem;background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.1);border-radius:14px}
+.stat-num{font-size:2rem;font-weight:900;color:var(--cyan);text-shadow:0 0 15px rgba(0,212,255,0.4)}
+.stat-lbl{font-size:.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:.3rem}
+/* Demo cases */
+.demo-cases{display:flex;flex-direction:column;gap:.7rem}
+.demo-case{display:flex;align-items:center;gap:1rem;padding:.9rem 1rem;border-radius:12px;border:1px solid}
+.demo-case.safe{background:rgba(0,255,136,0.05);border-color:rgba(0,255,136,0.2)}
+.demo-case.medium{background:rgba(255,170,0,0.05);border-color:rgba(255,170,0,0.2)}
+.demo-case.high{background:rgba(255,51,102,0.05);border-color:rgba(255,51,102,0.2)}
+.demo-badge{padding:.2rem .7rem;border-radius:99px;font-size:.72rem;font-weight:700;flex-shrink:0}
+.demo-case.safe .demo-badge{background:rgba(0,255,136,0.15);color:#00ff88}
+.demo-case.medium .demo-badge{background:rgba(255,170,0,0.15);color:#ffaa00}
+.demo-case.high .demo-badge{background:rgba(255,51,102,0.15);color:#ff3366}
+.demo-info{flex:1;font-size:.82rem;color:var(--text2)}
+.demo-info strong{color:var(--text);display:block;margin-bottom:.1rem}
+/* Footer */
+.report-footer{text-align:center;padding:2rem;border-top:1px solid var(--border);color:var(--text3);font-size:.8rem;margin-top:2rem}
+.report-footer a{color:var(--cyan);text-decoration:none}
+@media(max-width:600px){.stats-row{grid-template-columns:1fr 1fr}.anomaly-grid{grid-template-columns:1fr}.info-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="report-header">
+  <div class="logo-wrap">
+    <img src="/icons/logo.png" alt="TrustPay Logo"/>
+    <div style="text-align:left">
+      <div class="report-title">TrustPay UPI</div>
+      <div class="report-subtitle">Behavioral Fraud Intelligence System</div>
+    </div>
+  </div>
+  <div class="badges">
+    <span class="badge badge-cyan">PWA Mobile App</span>
+    <span class="badge badge-green">Flask Backend</span>
+    <span class="badge badge-purple">AI Fraud Detection</span>
+    <span class="badge badge-cyan">SQLite Database</span>
+    <span class="badge badge-green">Real-Time Analysis</span>
+    <span class="badge badge-purple">Behavioral Analytics</span>
+  </div>
+</div>
+
+<!-- PROJECT INFO -->
+<div class="section">
+  <div class="section-title">Project Information</div>
+  <div class="info-grid">
+    <div class="info-card"><div class="info-label">Project Name</div><div class="info-value">TrustPay UPI</div></div>
+    <div class="info-card"><div class="info-label">Category</div><div class="info-value">FinTech / AI Security</div></div>
+    <div class="info-card"><div class="info-label">Type</div><div class="info-value">Hackathon Project</div></div>
+    <div class="info-card"><div class="info-label">Platform</div><div class="info-value">Web PWA (Mobile-First)</div></div>
+    <div class="info-card"><div class="info-label">Backend</div><div class="info-value">Python Flask + SQLite</div></div>
+    <div class="info-card"><div class="info-label">Frontend</div><div class="info-value">HTML5 + CSS3 + Vanilla JS</div></div>
+    <div class="info-card"><div class="info-label">GitHub</div><div class="info-value"><a href="https://github.com/chethangowda25832-ctrl/trust-pay" target="_blank">trust-pay</a></div></div>
+    <div class="info-card"><div class="info-label">Demo Login</div><div class="info-value">9876543210 / PIN: 1234</div></div>
+  </div>
+</div>
+
+<!-- PROBLEM STATEMENT -->
+<div class="section">
+  <div class="section-title">Problem Statement</div>
+  <p style="color:var(--text2);font-size:.9rem;line-height:1.8;margin-bottom:1rem">
+    UPI fraud often occurs due to <strong style="color:var(--text)">social engineering</strong>, where users unknowingly authorize transactions. Traditional fraud detection systems fail to detect behavioral anomalies in real-time and only act after the fraud has occurred.
+  </p>
+  <p style="color:var(--text2);font-size:.9rem;line-height:1.8">
+    TrustPay solves this by <strong style="color:var(--cyan)">intervening before the transaction is completed</strong> — analyzing behavioral deviations and identifying possible social engineering influence in real time.
+  </p>
+</div>
+
+<!-- OBJECTIVES -->
+<div class="section">
+  <div class="section-title">Objectives</div>
+  <ul class="obj-list">
+    <li>Model normal user transaction behavior using statistical behavioral fingerprinting</li>
+    <li>Detect unusual transaction patterns using Z-score anomaly detection</li>
+    <li>Identify high-risk transactions in real-time with fraud probability scoring (0–100)</li>
+    <li>Provide contextual warnings with explainable AI reasoning per anomaly</li>
+    <li>Reduce social engineering risks through keyword detection and scam pattern matching</li>
+    <li>Visualize user behavior patterns through an interactive analytics dashboard</li>
+  </ul>
+</div>
+
+<!-- STATS -->
+<div class="section">
+  <div class="section-title">Project Statistics</div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num">20+</div><div class="stat-lbl">API Endpoints</div></div>
+    <div class="stat-box"><div class="stat-num">8</div><div class="stat-lbl">Anomaly Factors</div></div>
+    <div class="stat-box"><div class="stat-num">30+</div><div class="stat-lbl">Scam Keywords</div></div>
+    <div class="stat-box"><div class="stat-num">7</div><div class="stat-lbl">Dashboard Charts</div></div>
+  </div>
+</div>
+
+<!-- SYSTEM ARCHITECTURE -->
+<div class="section">
+  <div class="section-title">System Architecture</div>
+  <div class="arch-flow">
+    <div class="arch-step"><div class="arch-num">1</div><div class="arch-text"><strong>User Initiates Transaction</strong> — Enters UPI ID, amount, and note in the TrustPay app</div></div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-step"><div class="arch-num">2</div><div class="arch-text"><strong>Behavioral Fingerprint Check</strong> — System builds statistical model from user's 200 most recent transactions (avg, median, std deviation, known receivers, active hours)</div></div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-step"><div class="arch-num">3</div><div class="arch-text"><strong>Real-Time Anomaly Detection</strong> — 8 independent anomaly checks run simultaneously against the behavioral fingerprint</div></div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-step"><div class="arch-num">4</div><div class="arch-text"><strong>Fraud Probability Score</strong> — Weighted combination of anomaly scores (severity weights: LOW=0.6, MEDIUM=0.8, HIGH=1.0, CRITICAL=1.3) → 0–100 score with confidence level</div></div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-step"><div class="arch-num">5</div><div class="arch-text"><strong>Smart Warning UI</strong> — Contextual alert with per-anomaly evidence, smart protective question, and recommended action (CANCEL / VERIFY / SAFE)</div></div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-step"><div class="arch-num">6</div><div class="arch-text"><strong>User Decision + PIN Confirmation</strong> — User cancels or proceeds with PIN verification. Cancelled high-risk transactions are logged to fraud prevention records</div></div>
+  </div>
+</div>
+
+<!-- ANOMALY DETECTION MODEL -->
+<div class="section">
+  <div class="section-title">Behavioral Anomaly Detection Model</div>
+  <div class="anomaly-grid">
+    <div class="anomaly-card"><div class="anomaly-name">A1 — New Receiver</div><div class="anomaly-desc">Sending to a UPI ID not in transaction history</div><div class="anomaly-score">Score: +25 | Severity: HIGH</div></div>
+    <div class="anomaly-card"><div class="anomaly-name">A2 — Amount Deviation</div><div class="anomaly-desc">Z-score based: amount vs personal average (extreme: 10x+)</div><div class="anomaly-score">Score: +10 to +35 | Severity: MEDIUM–CRITICAL</div></div>
+    <div class="anomaly-card"><div class="anomaly-name">A3 — Time Anomaly</div><div class="anomaly-desc">Transaction at unusual hour (before 6AM / after 11PM)</div><div class="anomaly-score">Score: +10 to +20 | Severity: MEDIUM–HIGH</div></div>
+    <div class="anomaly-card"><div class="anomaly-name">A4 — Rapid Transactions</div><div class="anomaly-desc">3+ transactions in last 10 minutes</div><div class="anomaly-score">Score: +12 to +20 | Severity: MEDIUM–CRITICAL</div></div>
+    <div class="anomaly-card"><div class="anomaly-name">A5 — Social Engineering</div><div class="anomaly-desc">30+ urgency/scam keywords detected in note field</div><div class="anomaly-score">Score: +28 | Severity: CRITICAL</div></div>
+    <div class="anomaly-card"><div class="anomaly-name">A6 — Scam Pattern</div><div class="anomaly-desc">5 pattern categories: impersonation, lottery, urgency, threat, investment</div><div class="anomaly-score">Score: +18 | Severity: HIGH</div></div>
+    <div class="anomaly-card"><div class="anomaly-name">A7 — Round Number</div><div class="anomaly-desc">Large round-number amounts (≥₹10,000 divisible by 1000)</div><div class="anomaly-score">Score: +5 | Severity: LOW</div></div>
+    <div class="anomaly-card"><div class="anomaly-name">A8 — New User High Amount</div><div class="anomaly-desc">High amount from account with fewer than 5 transactions</div><div class="anomaly-score">Score: +15 | Severity: HIGH</div></div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="section">
+  <div class="section-title">Features Implemented</div>
+  <table class="feat-table">
+    <thead><tr><th>Feature</th><th>Description</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>UPI Send Money</td><td>Live UPI lookup, amount input, note, trusted contact bypass</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Request Money</td><td>Send payment requests to any UPI ID</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Mobile Recharge</td><td>Operator selection, plan grid, custom amount</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Behavioral Fingerprint</td><td>Statistical model: avg, median, std, known receivers, active hours</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Fraud Probability Score</td><td>0–100 weighted score with confidence level</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Explainable AI</td><td>Per-anomaly evidence strings shown to user</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Social Engineering Detection</td><td>30+ keywords + 5 scam pattern categories</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Smart Protective Question</td><td>Context-aware question based on detected threat type</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Trusted Contacts Whitelist</td><td>Skip fraud check for verified contacts</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Receiver Reputation Score</td><td>Cancel rate, flagged count, suspicious flag</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>PIN Lockout</td><td>5 wrong attempts → 5 min lock</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Change UPI PIN</td><td>3-step secure PIN change flow</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Spending Limits</td><td>Daily & weekly limits with real-time enforcement</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Scheduled Payments</td><td>Recurring payment management</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Split Bill</td><td>Split amount among multiple contacts</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Fraud Savings Counter</td><td>Total amount saved from cancelled high-risk transactions</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Transaction Dispute</td><td>Flag completed transactions for review</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Emergency Lock</td><td>One-tap 24-hour account freeze</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Analytics Dashboard</td><td>7 charts: risk trend, distribution, hourly heatmap, weekly spend, top recipients, anomaly log</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Behavior Trust Score</td><td>Animated SVG ring 0–100</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>PWA Mobile App</td><td>Installable, offline support, service worker</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>AI Security Theme</td><td>Cyber dark + neon cyan + grid lines</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Black & White Theme</td><td>Toggle between cyber and monochrome</td><td class="status-done">✅ Done</td></tr>
+      <tr><td>Hexagon Particles</td><td>Animated background with connecting lines</td><td class="status-done">✅ Done</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- TECH STACK -->
+<div class="section">
+  <div class="section-title">Technology Stack</div>
+  <div class="tech-grid">
+    <div class="tech-card"><div class="tech-icon">🐍</div><div class="tech-name">Python</div><div class="tech-desc">Flask 3.0 Backend</div></div>
+    <div class="tech-card"><div class="tech-icon">🗄️</div><div class="tech-name">SQLite</div><div class="tech-desc">Local Database</div></div>
+    <div class="tech-card"><div class="tech-icon">��</div><div class="tech-name">HTML5</div><div class="tech-desc">PWA Structure</div></div>
+    <div class="tech-card"><div class="tech-icon">🎨</div><div class="tech-name">CSS3</div><div class="tech-desc">Glassmorphism UI</div></div>
+    <div class="tech-card"><div class="tech-icon">⚡</div><div class="tech-name">JavaScript</div><div class="tech-desc">Vanilla ES6+</div></div>
+    <div class="tech-card"><div class="tech-icon">📊</div><div class="tech-name">Chart.js</div><div class="tech-desc">Data Visualization</div></div>
+    <div class="tech-card"><div class="tech-icon">📱</div><div class="tech-name">PWA</div><div class="tech-desc">Service Worker</div></div>
+    <div class="tech-card"><div class="tech-icon">🧮</div><div class="tech-name">Statistics</div><div class="tech-desc">Z-score, Mean, Std</div></div>
+  </div>
+</div>
+
+<!-- DEMO CASES -->
+<div class="section">
+  <div class="section-title">Demo Test Cases</div>
+  <div class="demo-cases">
+    <div class="demo-case safe">
+      <span class="demo-badge">✅ SAFE</span>
+      <div class="demo-info"><strong>₹500 → friend@upi | "Dinner split"</strong>Known receiver, normal amount, usual time → Score: 0%</div>
+    </div>
+    <div class="demo-case medium">
+      <span class="demo-badge">⚠️ MEDIUM</span>
+      <div class="demo-info"><strong>₹5,000 → newcontact@ybl | "Payment"</strong>New receiver, 2x average amount → Score: ~45%</div>
+    </div>
+    <div class="demo-case high">
+      <span class="demo-badge">🚨 HIGH RISK</span>
+      <div class="demo-info"><strong>₹50,000 → unknown@ybl | "Urgent KYC verify police"</strong>New receiver + 18x amount + social engineering keywords + scam pattern → Score: 100% | Confidence: VERY HIGH</div>
+    </div>
+  </div>
+</div>
+
+<!-- PITCH -->
+<div class="section">
+  <div class="section-title">Pitch Statement</div>
+  <blockquote style="border-left:3px solid var(--cyan);padding:1rem 1.5rem;background:rgba(0,212,255,0.04);border-radius:0 12px 12px 0;font-size:1rem;color:var(--text);font-style:italic;line-height:1.8">
+    "We are not detecting fraud after it happens. We intervene before the transaction is completed by analyzing behavioral deviations and identifying possible social engineering influence in real time."
+  </blockquote>
+</div>
+
+<!-- FOOTER -->
+<div class="report-footer">
+  <p>TrustPay UPI — Behavioral Fraud Intelligence System</p>
+  <p style="margin-top:.4rem">
+    <a href="https://github.com/chethangowda25832-ctrl/trust-pay" target="_blank">GitHub: trust-pay</a> &nbsp;|&nbsp;
+    <a href="/" target="_blank">Live App</a>
+  </p>
+  <p style="margin-top:.8rem;color:#3d7a9e">Built with Python Flask + SQLite + Vanilla JS + Chart.js</p>
+</div>
+
+</div>
+</body>
+</html>

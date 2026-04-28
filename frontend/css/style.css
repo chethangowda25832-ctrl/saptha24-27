@@ -375,3 +375,10 @@ input::placeholder { color: var(--text3); }
   .login-card { padding: 1rem; }
   .form-group { margin-bottom: .7rem; }
 }
+
+/* ── Canvas z-index fix ─────────────────────────────────────── */
+.screen, #app-shell, .modal-overlay, .toast, .install-banner, .theme-toggle {
+  position: relative;
+  z-index: 1;
+}
+#hex-canvas { z-index: 0 !important; }

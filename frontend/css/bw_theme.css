@@ -1,0 +1,169 @@
+
+/* ═══════════════════════════════════════════════════════════════
+   BLACK & WHITE THEME — TrustPay
+   Applied when body has class "theme-bw"
+   ═══════════════════════════════════════════════════════════════ */
+
+body.theme-bw {
+  --bg:      #000000;
+  --bg2:     #0d0d0d;
+  --bg3:     #1a1a1a;
+  --bg4:     #2a2a2a;
+  --border:  #222222;
+  --border2: #333333;
+  --text:    #ffffff;
+  --text2:   #aaaaaa;
+  --text3:   #666666;
+  --accent:  #ffffff;
+  --accent2: #dddddd;
+  --accent3: #bbbbbb;
+  --safe:    #ffffff;
+  --medium:  #aaaaaa;
+  --high:    #ffffff;
+  --neon-purple: #ffffff;
+  --neon-cyan:   #ffffff;
+  --neon-green:  #cccccc;
+  --neon-red:    #ffffff;
+}
+
+body.theme-bw { background-color: #000 !important; background-image: none !important; }
+body.theme-bw #app-shell { background: #000 !important; background-image: none !important; }
+body.theme-bw .screen.active { background: #000 !important; }
+
+/* Login */
+body.theme-bw .login-logo h1 { background: #fff !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+body.theme-bw .login-card { background: rgba(255,255,255,0.04) !important; border-color: rgba(255,255,255,0.15) !important; box-shadow: 0 0 40px rgba(255,255,255,0.04) !important; }
+body.theme-bw .login-card::before { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent) !important; }
+body.theme-bw .login-card::after { border-color: rgba(255,255,255,0.15) !important; }
+
+/* Inputs */
+body.theme-bw input[type="text"], body.theme-bw input[type="tel"],
+body.theme-bw input[type="password"], body.theme-bw input[type="number"],
+body.theme-bw .note-input {
+  background: rgba(255,255,255,0.04) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+  color: #fff !important;
+  caret-color: #fff !important;
+}
+body.theme-bw input:focus, body.theme-bw .note-input:focus {
+  border-color: rgba(255,255,255,0.5) !important;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.08) !important;
+}
+body.theme-bw .input-row { background: rgba(255,255,255,0.04) !important; border-color: rgba(255,255,255,0.12) !important; }
+body.theme-bw .input-row:focus-within { border-color: rgba(255,255,255,0.5) !important; }
+body.theme-bw .prefix { color: #aaa !important; border-right-color: rgba(255,255,255,0.1) !important; }
+
+/* Buttons */
+body.theme-bw .btn-primary { background: #fff !important; color: #000 !important; box-shadow: 0 4px 20px rgba(255,255,255,0.2) !important; }
+body.theme-bw .btn-primary::after { background: linear-gradient(135deg, rgba(0,0,0,0.1), transparent) !important; }
+body.theme-bw .pay-now-btn { background: #fff !important; color: #000 !important; box-shadow: 0 4px 20px rgba(255,255,255,0.2) !important; }
+
+/* Nav */
+body.theme-bw .bottom-nav { background: rgba(0,0,0,0.95) !important; border-top-color: rgba(255,255,255,0.1) !important; }
+body.theme-bw .bnav-btn { color: #555 !important; }
+body.theme-bw .bnav-btn.active { color: #fff !important; }
+body.theme-bw .bnav-btn.active .bnav-icon { filter: drop-shadow(0 0 4px rgba(255,255,255,0.6)); }
+body.theme-bw .bnav-scan .scan-icon { background: #fff !important; color: #000 !important; box-shadow: 0 0 20px rgba(255,255,255,0.3) !important; animation: bwPulse 2s ease-in-out infinite !important; }
+@keyframes bwPulse { 0%,100%{box-shadow:0 0 20px rgba(255,255,255,0.3),0 0 0 0 rgba(255,255,255,0.2);}50%{box-shadow:0 0 30px rgba(255,255,255,0.4),0 0 0 8px rgba(255,255,255,0);} }
+
+/* Status bar */
+body.theme-bw .status-bar { background: #000 !important; border-bottom-color: rgba(255,255,255,0.08) !important; color: #fff !important; }
+
+/* Page header */
+body.theme-bw .page-header { background: rgba(0,0,0,0.95) !important; border-bottom-color: rgba(255,255,255,0.08) !important; }
+body.theme-bw .page-header h2 { color: #fff !important; }
+body.theme-bw .back-btn { color: #fff !important; }
+
+/* Home header */
+body.theme-bw .home-header { background: #000 !important; border-bottom-color: rgba(255,255,255,0.08) !important; }
+body.theme-bw .home-header::before { background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.06) 0%, transparent 70%) !important; }
+body.theme-bw .home-header::after { background: #000 !important; }
+body.theme-bw .home-greeting { color: rgba(255,255,255,0.4) !important; }
+body.theme-bw .home-name { color: #fff !important; }
+
+/* Balance card */
+body.theme-bw .balance-card { background: rgba(255,255,255,0.05) !important; border-color: rgba(255,255,255,0.15) !important; box-shadow: 0 0 20px rgba(255,255,255,0.05) !important; }
+body.theme-bw .balance-label { color: rgba(255,255,255,0.5) !important; }
+body.theme-bw .balance-amount { color: #fff !important; text-shadow: 0 0 20px rgba(255,255,255,0.2) !important; }
+body.theme-bw .balance-upi { color: rgba(255,255,255,0.4) !important; }
+
+/* Cards */
+body.theme-bw .qa-btn, body.theme-bw .profile-item, body.theme-bw .plan-card,
+body.theme-bw .operator-btn, body.theme-bw .stat-card, body.theme-bw .chart-card,
+body.theme-bw .receiver-card, body.theme-bw .offer-card {
+  background: rgba(255,255,255,0.03) !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+body.theme-bw .qa-btn:active { background: rgba(255,255,255,0.08) !important; border-color: rgba(255,255,255,0.3) !important; }
+body.theme-bw .qa-icon.purple, body.theme-bw .qa-icon.green, body.theme-bw .qa-icon.blue,
+body.theme-bw .qa-icon.orange, body.theme-bw .qa-icon.pink, body.theme-bw .qa-icon.teal,
+body.theme-bw .qa-icon.yellow, body.theme-bw .qa-icon.red { background: rgba(255,255,255,0.08) !important; }
+body.theme-bw .qa-label { color: #aaa !important; }
+body.theme-bw .section-title { color: #fff !important; }
+
+/* Transactions */
+body.theme-bw .txn-amount.debit, body.theme-bw .hi-amount.debit { color: #fff !important; text-shadow: none !important; }
+body.theme-bw .txn-amount.credit, body.theme-bw .hi-amount.credit { color: #ccc !important; text-shadow: none !important; }
+body.theme-bw .txn-item, body.theme-bw .history-item, body.theme-bw .contact-item { border-bottom-color: rgba(255,255,255,0.06) !important; }
+
+/* Modal */
+body.theme-bw .modal-overlay { background: rgba(0,0,0,0.92) !important; }
+body.theme-bw .modal-card { background: rgba(10,10,10,0.98) !important; border-color: rgba(255,255,255,0.12) !important; box-shadow: 0 -4px 40px rgba(255,255,255,0.05) !important; }
+body.theme-bw .modal-card::before { background: rgba(255,255,255,0.2) !important; }
+body.theme-bw .modal-header.high   { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.2) !important; }
+body.theme-bw .modal-header.medium { background: rgba(255,255,255,0.04) !important; border-color: rgba(255,255,255,0.15) !important; }
+body.theme-bw .modal-header.safe   { background: rgba(255,255,255,0.04) !important; border-color: rgba(255,255,255,0.15) !important; }
+body.theme-bw .risk-bar-bg { background: rgba(255,255,255,0.08) !important; }
+body.theme-bw .risk-bar-fill { background: linear-gradient(90deg, #aaa, #ddd, #fff) !important; box-shadow: 0 0 8px rgba(255,255,255,0.3) !important; }
+body.theme-bw .scam-alert { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.2) !important; }
+body.theme-bw .smart-q { background: rgba(255,255,255,0.04) !important; border-color: rgba(255,255,255,0.15) !important; }
+body.theme-bw .btn-cancel-txn  { background: rgba(255,255,255,0.06) !important; color: #fff !important; border-color: rgba(255,255,255,0.2) !important; }
+body.theme-bw .btn-proceed-txn { background: rgba(255,255,255,0.04) !important; color: #aaa !important; border-color: rgba(255,255,255,0.1) !important; }
+body.theme-bw .btn-confirm-txn { background: rgba(255,255,255,0.08) !important; color: #fff !important; border-color: rgba(255,255,255,0.2) !important; }
+
+/* PIN */
+body.theme-bw .pin-pad button { background: rgba(255,255,255,0.05) !important; border-color: rgba(255,255,255,0.1) !important; color: #fff !important; }
+body.theme-bw .pin-pad button:active { background: rgba(255,255,255,0.15) !important; border-color: rgba(255,255,255,0.4) !important; }
+body.theme-bw .pin-dots span { background: rgba(255,255,255,0.08) !important; border-color: rgba(255,255,255,0.15) !important; }
+body.theme-bw .pin-dots span.filled { background: #fff !important; border-color: #fff !important; box-shadow: 0 0 8px rgba(255,255,255,0.4) !important; }
+body.theme-bw .pin-amount-display { background: #fff !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; }
+
+/* Misc */
+body.theme-bw .filter-btn { background: rgba(255,255,255,0.04) !important; border-color: rgba(255,255,255,0.1) !important; color: #aaa !important; }
+body.theme-bw .filter-btn.active { background: rgba(255,255,255,0.12) !important; border-color: rgba(255,255,255,0.4) !important; color: #fff !important; box-shadow: 0 0 10px rgba(255,255,255,0.1) !important; }
+body.theme-bw .quick-amt { background: rgba(255,255,255,0.04) !important; border-color: rgba(255,255,255,0.1) !important; color: #aaa !important; }
+body.theme-bw .quick-amt:active { background: rgba(255,255,255,0.12) !important; border-color: rgba(255,255,255,0.4) !important; color: #fff !important; }
+body.theme-bw .toast { background: rgba(10,10,10,0.98) !important; border-color: rgba(255,255,255,0.15) !important; }
+body.theme-bw .amount-prefix { color: #fff !important; }
+body.theme-bw .amount-underline { background: #fff !important; box-shadow: 0 0 6px rgba(255,255,255,0.3) !important; }
+body.theme-bw .verified-badge { color: #fff !important; text-shadow: 0 0 4px rgba(255,255,255,0.4); }
+body.theme-bw .switch-link a { color: #fff !important; }
+body.theme-bw .demo-hint { background: rgba(255,255,255,0.04) !important; border-color: rgba(255,255,255,0.08) !important; }
+body.theme-bw .logout-btn { background: rgba(255,255,255,0.04) !important; border-color: rgba(255,255,255,0.15) !important; color: #fff !important; }
+body.theme-bw .scan-frame { border-color: #fff !important; box-shadow: 0 0 15px rgba(255,255,255,0.15) !important; }
+body.theme-bw .scan-line { background: linear-gradient(90deg, transparent, #fff, transparent) !important; }
+body.theme-bw .risk-dot.safe, body.theme-bw .risk-dot.medium, body.theme-bw .risk-dot.high { background: #fff !important; box-shadow: none !important; }
+body.theme-bw .stat-card.safe .stat-val, body.theme-bw .stat-card.medium .stat-val, body.theme-bw .stat-card.high .stat-val { color: #fff !important; text-shadow: none !important; }
+body.theme-bw .chart-card h3 { color: #fff !important; }
+body.theme-bw .profile-header { background: #000 !important; }
+body.theme-bw .profile-section-title { color: #fff !important; }
+body.theme-bw #bscore-arc { stroke: #fff !important; filter: none !important; }
+body.theme-bw .install-banner { background: rgba(10,10,10,0.98) !important; border-color: rgba(255,255,255,0.2) !important; }
+body.theme-bw .install-btn { background: #fff !important; color: #000 !important; }
+body.theme-bw .change-pin-step-label { background: rgba(255,255,255,0.04) !important; border-color: rgba(255,255,255,0.12) !important; }
+body.theme-bw .change-pin-step-label span { color: #fff !important; }
+
+/* Theme toggle button */
+.theme-toggle {
+  position: fixed; top: 50px; right: 12px;
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; cursor: pointer; z-index: 200;
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  backdrop-filter: blur(10px);
+}
+.theme-toggle:active { transform: scale(0.9); }
+body.theme-bw .theme-toggle { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
