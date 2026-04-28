@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+  <title>TrustPay UPI</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/pages.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN: LOGIN
+══════════════════════════════════════════════════════════ -->
+<div id="screen-login" class="screen active">
+  <div class="login-wrap">
+    <div class="login-logo">
+      <div class="logo-icon">₹</div>
+      <h1>TrustPay</h1>
+      <p>India's Safest UPI App</p>
+    </div>
+    <div class="login-card">
+      <h2>Welcome Back</h2>
+      <div class="form-group">
+        <label>Mobile Number</label>
+        <div class="input-row">
+          <span class="prefix">+91</span>
+          <input type="tel" id="login-phone" placeholder="9876543210" maxlength="10"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>UPI PIN</label>
+        <input type="password" id="login-pin" placeholder="Enter 4-digit PIN" maxlength="6"/>
+      </div>
+      <button class="btn-primary" onclick="doLogin()">Login</button>
+      <p class="switch-link">New user? <a onclick="showScreen('screen-register')">Create Account</a></p>
+      <p class="demo-hint">Demo: 9876543210 / PIN: 1234</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCREEN: REGISTER
+══════════════════════════════════════════════════════════ -->
+<div id="screen-register" class="screen">
+  <div class="login-wrap">
+    <div class="login-logo">
+      <div class="logo-icon">₹</div>
+      <h1>TrustPay</h1>
+    </div>
+    <div class="login-card">
+      <h2>Create Account</h2>
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="reg-name" placeholder="Your name"/>
+      </div>
+      <div class="form-group">
+        <label>Mobile Number</label>
+        <div class="input-row">
+          <span class="prefix">+91</span>
+          <input type="tel" id="reg-phone" placeholder="10-digit number" maxlength="10"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>UPI ID</label>
+        <input type="text" id="reg-upi" placeholder="yourname@trustpay"/>
+      </div>
+      <div class="form-group">
+        <label>Set UPI PIN</label>
+        <input type="password" id="reg-pin" placeholder="4-6 digit PIN" maxlength="6"/>
+      </div>
+      <button class="btn-primary" onclick="doRegister()">Create Account</button>
+      <p class="switch-link">Already have account? <a onclick="showScreen('screen-login')">Login</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     MAIN APP SHELL (shown after login)
+══════════════════════════════════════════════════════════ -->
+<div id="app-shell" class="hidden">
+
+  <!-- ── Top Status Bar ── -->
+  <div class="status-bar">
+    <span id="status-time">9:41</span>
+    <div class="status-icons">
+      <span>●●●</span><span>WiFi</span><span>🔋</span>
+    </div>
+  </div>
+
+  <!-- ── Page Container ── -->
+  <div id="page-home"       class="app-page active"></div>
+  <div id="page-send"       class="app-page"></div>
+  <div id="page-request"    class="app-page"></div>
+  <div id="page-history"    class="app-page"></div>
+  <div id="page-profile"    class="app-page"></div>
+  <div id="page-recharge"   class="app-page"></div>
+  <div id="page-scan"       class="app-page"></div>
+  <div id="page-dashboard"  class="app-page"></div>
+
+  <!-- ── Bottom Nav ── -->
+  <nav class="bottom-nav">
+    <button class="bnav-btn active" onclick="navTo('home')" id="bnav-home">
+      <span class="bnav-icon">🏠</span><span>Home</span>
+    </button>
+    <button class="bnav-btn" onclick="navTo('history')" id="bnav-history">
+      <span class="bnav-icon">📋</span><span>History</span>
+    </button>
+    <button class="bnav-btn bnav-scan" onclick="navTo('scan')" id="bnav-scan">
+      <span class="bnav-icon scan-icon">⊞</span><span>Scan</span>
+    </button>
+    <button class="bnav-btn" onclick="navTo('dashboard')" id="bnav-dashboard">
+      <span class="bnav-icon">📊</span><span>Insights</span>
+    </button>
+    <button class="bnav-btn" onclick="navTo('profile')" id="bnav-profile">
+      <span class="bnav-icon">👤</span><span>Profile</span>
+    </button>
+  </nav>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     MODAL: FRAUD WARNING
+══════════════════════════════════════════════════════════ -->
+<div id="fraud-modal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <div class="modal-header" id="modal-header">
+      <div class="modal-emoji" id="modal-emoji">🚨</div>
+      <div class="modal-title" id="modal-title">High Risk Detected</div>
+      <div class="modal-sub" id="modal-sub">TrustGuard has flagged this payment</div>
+    </div>
+    <div class="risk-bar-wrap">
+      <div class="risk-bar-top">
+        <span>Risk Score</span>
+        <span class="risk-val" id="modal-score">0%</span>
+      </div>
+      <div class="risk-bar-bg"><div class="risk-bar-fill" id="modal-bar"></div></div>
+      <div class="risk-bar-labels"><span>Safe</span><span>Medium</span><span>High</span></div>
+    </div>
+    <div class="modal-reasons" id="modal-reasons"></div>
+    <div class="scam-alert hidden" id="modal-scam">
+      <span>🎭</span>
+      <div><strong>Social Engineering Detected</strong><p>Matches known scam patterns.</p></div>
+    </div>
+    <div class="smart-q hidden" id="modal-smartq">
+      <p id="modal-sq-text"></p>
+      <div class="sq-row">
+        <button class="sq-yes" onclick="sqAnswer('yes')">Yes, someone asked me</button>
+        <button class="sq-no"  onclick="sqAnswer('no')">No, my own decision</button>
+      </div>
+    </div>
+    <div class="modal-actions" id="modal-actions">
+      <button class="btn-cancel-txn" onclick="modalAction('cancel')">❌ Cancel</button>
+      <button class="btn-proceed-txn" onclick="modalAction('proceed')">Continue Anyway</button>
+    </div>
+    <div class="modal-safe-actions hidden" id="modal-safe-actions">
+      <button class="btn-confirm-txn" onclick="modalAction('proceed')">✅ Pay Now</button>
+      <button class="btn-cancel-txn"  onclick="modalAction('cancel')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     MODAL: PIN ENTRY
+══════════════════════════════════════════════════════════ -->
+<div id="pin-modal" class="modal-overlay hidden">
+  <div class="modal-card pin-card">
+    <div class="pin-header">
+      <div class="pin-to" id="pin-to-name">Paying Priya</div>
+      <div class="pin-amount" id="pin-amount-display">₹0</div>
+    </div>
+    <p class="pin-label">Enter UPI PIN</p>
+    <div class="pin-dots" id="pin-dots">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="pin-pad">
+      <button onclick="pinKey('1')">1</button><button onclick="pinKey('2')">2</button><button onclick="pinKey('3')">3</button>
+      <button onclick="pinKey('4')">4</button><button onclick="pinKey('5')">5</button><button onclick="pinKey('6')">6</button>
+      <button onclick="pinKey('7')">7</button><button onclick="pinKey('8')">8</button><button onclick="pinKey('9')">9</button>
+      <button onclick="pinKey('back')" class="pin-back">⌫</button>
+      <button onclick="pinKey('0')">0</button>
+      <button onclick="pinKey('ok')" class="pin-ok">✓</button>
+    </div>
+    <button class="pin-cancel-btn" onclick="closePinModal()">Cancel</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     TOAST
+══════════════════════════════════════════════════════════ -->
+<div id="toast" class="toast hidden"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
