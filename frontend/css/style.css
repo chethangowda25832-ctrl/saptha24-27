@@ -17,7 +17,7 @@ body { font-family: Inter, sans-serif; background: var(--bg); color: var(--text)
 .screen.active { display: flex; justify-content: center; align-items: center; }
 .login-wrap { width: 100%; max-width: 420px; padding: 2rem; }
 .login-logo { text-align: center; margin-bottom: 3rem; }
-.logo-icon { width: 80px; height: 80px; margin: 0 auto 1rem; background: linear-gradient(135deg, var(--accent), var(--accent3)); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 900; color: #fff; box-shadow: 0 10px 40px rgba(124,58,237,.4); }
+.logo-icon { width: 80px; height: 80px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; }
 .login-logo h1 { font-size: 2rem; font-weight: 900; background: linear-gradient(135deg, var(--accent2), var(--accent3)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: .3rem; }
 .login-logo p { font-size: .9rem; color: var(--text2); }
 .login-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow); }
